@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WhattaNews - Philippines News</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', sans-serif;
+            background: #f8f9fa;
+            color: #2c3e50;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* HEADER */
+        header {
+            background: white;
+            border-bottom: 1px solid #e8ecf1;
+            padding: 30px 0;
+            margin-bottom: 50px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1a1a1a;
+            letter-spacing: -0.5px;
+        }
+        
+        .logo span {
+            color: #d32f2f;
+        }
+        
+        .header-subtitle {
+            font-size: 12px;
+            color: #7f8c8d;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-top: 5px;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            text-decoration: none;
+            font-size: 16px;
+            background: #f0f2f5;
+            color: #2c3e50;
+            transition: all 0.3s ease;
+            border: 1px solid transparent;
+        }
+        
+        .social-links a:hover {
+            background: #2c3e50;
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        /* MAIN CONTENT */
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+        
+        .news-section {
+            background: white;
+            border: 1px solid #e8ecf1;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .news-section:hover {
+            border-color: #d32f2f;
+            box-shadow: 0 4px 12px rgba(211, 47, 47, 0.08);
+        }
+        
+        .section-header {
+            padding: 24px;
+            background: white;
+            border-bottom: 2px solid #e8ecf1;
+            font-size: 18px;
+            font-weight: 600;
+            color: #1a1a1a;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            letter-spacing: -0.3px;
+        }
+        
+        .section-header.typhoon {
+            border-bottom-color: #d32f2f;
+            color: #d32f2f;
+        }
+        
+        .section-header.sports {
+            border-bottom-color: #2196F3;
+            color: #2196F3;
+        }
+        
+        .section-header.entertainment {
+            border-bottom-color: #FF9800;
+            color: #FF9800;
+        }
+        
+        .section-header.trends {
+            border-bottom-color: #4CAF50;
+            color: #4CAF50;
+        }
+        
+        .news-content {
+            padding: 24px;
+        }
+        
+        .news-item {
+            padding: 20px 0;
+            border-bottom: 1px solid #e8ecf1;
+            display: flex;
+            gap: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .news-item:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+        
+        .news-item:hover {
+            padding-left: 10px;
+        }
+        
+        .news-item-image {
+            width: 90px;
+            height: 90px;
+            border-radius: 6px;
+            object-fit: cover;
+            flex-shrink: 0;
+            background: #f0f2f5;
+        }
+        
+        .news-item-text {
+            flex: 1;
+        }
+        
+        .news-item h3 {
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #1a1a1a;
+            line-height: 1.4;
+        }
+        
+        .news-item h3 a {
+            text-decoration: none;
+            color: inherit;
+            transition: color 0.3s ease;
+        }
+        
+        .news-item h3 a:hover {
+            color: #d32f2f;
+        }
+        
+        .news-item p {
+            font-size: 13px;
+            color: #64748b;
+            line-height: 1.5;
+            margin-bottom: 10px;
+        }
+        
+        .news-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .social-tag {
+            display: inline-block;
+            background: #f0f2f5;
+            color: #2c3e50;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .timestamp {
+            font-size: 11px;
+            color: #95a5a6;
+            white-space: nowrap;
+        }
+        
+        .alert {
+            background: #fff5f5;
+            border-left: 3px solid #d32f2f;
+            padding: 16px;
+            margin-bottom: 20px;
+            border-radius: 4px;
+            color: #c53030;
+            font-size: 13px;
+            font-weight: 600;
+        }
+        
+        /* RESPONSIVE */
+        @media (max-width: 1024px) {
+            .news-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            header {
+                padding: 20px 0;
+                margin-bottom: 30px;
+            }
+            
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .social-links {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .news-item {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .news-item-image {
+                width: 100%;
+                height: 200px;
+            }
+            
+            .news-meta {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div>
+                    <div class="logo">Whatta<span>News</span></div>
+                    <div class="header-subtitle">Philippines News & Updates</div>
+                </div>
+                <div class="social-links">
+                    <a href="https://www.facebook.com/philippines" target="_blank" title="Facebook">f</a>
+                    <a href="https://www.twitter.com/search?q=philippines" target="_blank" title="Twitter">𝕏</a>
+                    <a href="https://www.tiktok.com/@whattanews" target="_blank" title="TikTok">♪</a>
+                    <a href="https://www.instagram.com/whattanews" target="_blank" title="Instagram">📷</a>
+                    <a href="https://www.youtube.com/@whattanews" target="_blank" title="YouTube">▶</a>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <main class="container">
+        <!-- TYPHOON UPDATES -->
+        <div class="news-section">
+            <div class="section-header typhoon">
+                🌪️ Typhoon Updates
+            </div>
+            <div class="news-content">
+                <div class="alert">⚠️ Weather advisory active. Stay updated with latest storm information.</div>
+                
+                <div class="news-item">
+                    <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=200&h=200&fit=crop" alt="Tropical Storm" class="news-item-image">
+                    <div class="news-item-text">
+                        <h3><a href="https://twitter.com/search?q=tropical+storm+philippines" target="_blank">Tropical Storm Warning Issued</a></h3>
+                        <p>PAGASA monitoring systems across Western Pacific. Northern Luzon on high alert with wind speeds expected 20-40 km/h.</p>
+                        <div class="news-meta">
+                            <span class="social-tag">Twitter</span>
+                            <span class="timestamp">2:30 PM</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="news-item">
+                    <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=200&h=200&fit=crop" alt="Metro Manila" class="news-item-image">
+                    <div class="news-item-text">
+                        <h3><a href="https://www.facebook.com/search/top/?q=metro+manila+weather" target="_blank">Metro Manila Weather Advisory</a></h3>
+                        <p>Scattered rains expected throughout the metro. Visibility may be reduced in some areas. Exercise caution.</p>
+                        <div class="news-meta">
+                            <span class="social-tag">Facebook</span>
+                            <span class="timestamp">1:00 PM</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="news-item">
+                    <img src="https://images.unsplash.com/photo-1512208736330-6a3fd3212f0f?w=200&h=200&fit=crop" alt="Evacuation" class="news-item-image">
+                    <div class="news-item-text">
+                        <h3><a href="https://www.tiktok.com/search?q=evacuation+update" target="_blank">Evacuation Centers Prepared</a></h3>
+                        <p>Local government units have activated evacuation centers as precautionary measure. No mandatory evacuations at this time.</p>
+                        <div class="news-meta">
+                            <span class="social-tag">TikTok</span>
+                            <span class="timestamp">10:00 AM</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(500px, 1fr)); gap: 30px; margin-top: 30px;">
+            <!-- SPORTS NEWS -->
+            <div class="news-section">
+                <div class="section-header sports">
+                    ⚽ Sports News
+                </div>
+                <div class="news-content">
+                    <div class="news-item">
+                        <img src="https://images.unsplash.com/photo-1546519638-68711109d298?w=200&h=200&fit=crop" alt="Basketball" class="news-item-image">
+                        <div class="news-item-text">
+                            <h3><a href="https://www.facebook.com/search/top/?q=PBA+season" target="_blank">TNT Edges Out Ginebra in Thriller</a></h3>
+                            <p>TNT Tropang Giga clinches victory with final score 98-96 in intense playoff match.</p>
+                            <div class="news-meta">
+                                <span class="social-tag">Facebook</span>
+                                <span class="timestamp">9:45 PM</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="news-item">
+                        <img src="https://images.unsplash.com/photo-1589487391730-58f20eb2c619?w=200&h=200&fit=crop" alt="Boxing" class="news-item-image">
+                        <div class="news-item-text">
+                            <h3><a href="https://twitter.com/search?q=manny+pacquiao" target="_blank">Pacquiao Announces 2025 Comeback</a></h3>
+                            <p>Boxing legend confirms exhibition match scheduled for next year with full details coming soon.</p>
+                            <div class="news-meta">
+                                <span class="social-tag">Twitter</span>
+                                <span class="timestamp">5:20 PM</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="news-item">
+                        <img src="https://images.unsplash.com/photo-1517130038641-a774d04afb3c?w=200&h=200&fit=crop" alt="Volleyball" class="news-item-image">
+                        <div class="news-item-text">
+                            <h3><a href="https://www.instagram.com/explore/tags/uaap/" target="_blank">Ateneo Women Dominate UAAP</a></h3>
+                            <p>Blue Eagles maintain unbeaten record at 5-0. Championship finals scheduled for this weekend.</p>
+                            <div class="news-meta">
+                                <span class="social-tag">Instagram</span>
+                                <span class="timestamp">3:15 PM</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- ENTERTAINMENT NEWS -->
+            <div class="news-section">
+                <div class="section-header entertainment">
+                    🎬 Entertainment
+                </div>
+                <div class="news-content">
+                    <div class="news-item">
+                        <img src="https://images.unsplash.com/photo-1489599849228-de886ad09686?w=200&h=200&fit=crop" alt="Film" class="news-item-image">
+                        <div class="news-item-text">
+                            <h3><a href="https://www.tiktok.com/search?q=bagong+simula+movie" target="_blank">Bagong Simula Premieres This Weekend</a></h3>
+                            <p>New Filipino drama starring Anne Curtis and Dingdong Dantes. Early screenings now available.</p>
+                            <div class="news-meta">
+                                <span class="social-tag">TikTok</span>
+                                <span class="timestamp">6:00 PM</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="news-item">
+                        <img src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=200&h=200&fit=crop" alt="TV Show" class="news-item-image">
+                        <div class="news-item-text">
+                            <h3><a href="https://www.facebook.com/search/top/?q=its+showtime" target="_blank">It's Showtime Ratings Soar</a></h3>
+                            <p>Popular noontime variety show records 15% viewership increase with new segment lineup.</p>
+                            <div class="news-meta">
+                                <span class="social-tag">Facebook</span>
+                                <span class="timestamp">4:30 PM</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="news-item">
+                        <img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=200&h=200&fit=crop" alt="Concert" class="news-item-image">
+                        <div class="news-item-text">
+                            <h3><a href="https://www.youtube.com/results?search_query=SB19+concert+2025" target="_blank">SB19 Manila Concert Announced</a></h3>
+                            <p>P-pop sensation confirms December 2025 concert dates. Tickets now available online.</p>
+                            <div class="news-meta">
+                                <span class="social-tag">YouTube</span>
+                                <span class="timestamp">11:00 AM</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- TRENDING NOW -->
+        <div class="news-section" style="margin-top: 30px;">
+            <div class="section-header trends">
+                📈 Trending Now
+            </div>
+            <div class="news-content">
+                <div class="news-item">
+                    <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=200&h=200&fit=crop" alt="Trending" class="news-item-image">
+                    <div class="news-item-text">
+                        <h3><a href="https://twitter.com/search?q=%23BayaniBayan" target="_blank">#BayaniBayan Movement Gains Momentum</a></h3>
+                        <p>Community-driven campaign supporting local businesses reaches 2.5M social media views and counting.</p>
+                        <div class="news-meta">
+                            <span class="social-tag">Twitter</span>
+                            <span class="timestamp">7:15 PM</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="news-item">
+                    <img src="https://images.unsplash.com/photo-1611339555312-e607c90352fd?w=200&h=200&fit=crop" alt="OFW" class="news-item-image">
+                    <div class="news-item-text">
+                        <h3><a href="https://www.tiktok.com/search?q=OFW+success+stories" target="_blank">OFW Success Stories Go Viral</a></h3>
+                        <p>Inspiring TikTok series documenting Overseas Filipino Workers achievements reaches 8M+ views worldwide.</p>
+                        <div class="news-meta">
+                            <span class="social-tag">TikTok</span>
+                            <span class="timestamp">5:45 PM</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="news-item">
+                    <img src="https://images.unsplash.com/photo-1559027615-cd4628902d4a?w=200&h=200&fit=crop" alt="Eco-Friendly" class="news-item-image">
+                    <div class="news-item-text">
+                        <h3><a href="https://www.instagram.com/explore/tags/zerowaste/" target="_blank">Zero Waste Movement Takes Off</a></h3>
+                        <p>Filipinos embrace sustainable living practices. Local eco-startups gain international recognition and funding.</p>
+                        <div class="news-meta">
+                            <span class="social-tag">Instagram</span>
+                            <span class="timestamp">3:30 PM</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="news-item">
+                    <img src="https://images.unsplash.com/photo-1495521821757-a1efb6729352?w=200&h=200&fit=crop" alt="Food" class="news-item-image">
+                    <div class="news-item-text">
+                        <h3><a href="https://www.facebook.com/search/top/?q=ube+desserts" target="_blank">Ube Trend Dominates Food Scene</a></h3>
+                        <p>Purple yam-inspired desserts and pastries become cafe bestsellers across Metro Manila.</p>
+                        <div class="news-meta">
+                            <span class="social-tag">Facebook</span>
+                            <span class="timestamp">1:45 PM</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
